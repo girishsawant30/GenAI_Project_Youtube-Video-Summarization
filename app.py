@@ -23,8 +23,9 @@ def generate_gemini_content(transcript_text, prompt):
 #Getting the transcript data from YT videos
 def extract_transcript_details(youtube_video_url):
     try:
-        video_id = youtube_video_url.split("=")[1]
-        transcript_text = YouTubeTranscriptApi.get_transcript(video_id)
+        video_id = youtube_video_url.split("=")[1][:11]
+        #print(video_id)
+        transcript_text = YouTubeTranscriptApi.get_transcript(video_id, languages=['en','hi'])
 
         transcript = ""
         for i in transcript_text:
@@ -42,7 +43,7 @@ st.header("YouTube Transcript to Detailed Notes Converter")
 
 youtube_link=st.text_input("Enter Youtube Video Link: ")
 if youtube_link:
-    video_id = youtube_link.split("=")[1]
+    video_id = youtube_link.split("=")[1][:11]
     print(video_id)
     st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
 
